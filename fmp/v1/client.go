@@ -7,7 +7,11 @@ import (
 func New(apiKey string, client *http.Client) *Client {
 	handler := Client{
 		apiKey: apiKey,
-		client: client,
+		client: http.DefaultClient,
+	}
+
+	if client != nil {
+		handler.client = client
 	}
 
 	return &handler
