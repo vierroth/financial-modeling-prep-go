@@ -30,7 +30,7 @@ type HistoricalPriceEodOutput struct {
 }
 
 func (client Client) HistoricalPriceEod(ctx context.Context, input HistoricalPriceEodInput) ([]*HistoricalPriceEodOutput, error) {
-	baseURL, err := url.Parse("https://financialmodelingprep.com/stable/historical-price-eod")
+	baseURL, err := url.Parse("https://financialmodelingprep.com/stable/historical-price-eod/full")
 	if err != nil {
 		return nil, fmt.Errorf("parse URL: %w", err)
 	}

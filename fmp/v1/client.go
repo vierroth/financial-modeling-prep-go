@@ -10,7 +10,7 @@ func New(apiKey string, client *http.Client) *Client {
 	handler := Client{
 		apiKey:  apiKey,
 		client:  http.DefaultClient,
-		limiter: rate.NewLimiter(rate.Limit(45), 1),
+		limiter: rate.NewLimiter(rate.Limit(48), 1),
 	}
 
 	if client != nil {
