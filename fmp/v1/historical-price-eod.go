@@ -62,16 +62,16 @@ func (client Client) HistoricalPriceEod(ctx context.Context, input HistoricalPri
 	}
 
 	var items []struct {
-		Symbol        string    `json:"symbol"`
-		Date          time.Time `json:"date"`
-		Open          float64   `json:"open"`
-		Close         float64   `json:"close"`
-		High          float64   `json:"high"`
-		Low           float64   `json:"low"`
-		Volume        uint64    `json:"volume"`
-		Change        float64   `json:"change"`
-		ChangePercent float64   `json:"changePercent"`
-		Vwap          float64   `json:"vwap"`
+		Symbol        string  `json:"symbol"`
+		Date          string  `json:"date"`
+		Open          float64 `json:"open"`
+		Close         float64 `json:"close"`
+		High          float64 `json:"high"`
+		Low           float64 `json:"low"`
+		Volume        uint64  `json:"volume"`
+		Change        float64 `json:"change"`
+		ChangePercent float64 `json:"changePercent"`
+		Vwap          float64 `json:"vwap"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&items); err != nil && err != io.EOF {
 		return nil, fmt.Errorf("decode response: %w", err)
@@ -79,9 +79,13 @@ func (client Client) HistoricalPriceEod(ctx context.Context, input HistoricalPri
 
 	response := make([]*HistoricalPriceEodOutput, len(items))
 	for i, item := range items {
+		date, err := time.Parse("2006-01-02", item.Date)
+		if err != nil {
+			return nil, fmt.Errorf("parse historical date %q: %w", item.Date, err)
+		}
 		response[i] = &HistoricalPriceEodOutput{
 			Symbol:        item.Symbol,
-			Date:          item.Date,
+			Date:          date,
 			Open:          item.Open,
 			Close:         item.Close,
 			High:          item.High,
