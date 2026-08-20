@@ -23,7 +23,7 @@ type HistoricalPriceEodOutput struct {
 	Close         float64
 	High          float64
 	Low           float64
-	Volume        uint64
+	Volume        float64
 	Change        float64
 	ChangePercent float64
 	Vwap          float64
@@ -68,7 +68,7 @@ func (client Client) HistoricalPriceEod(ctx context.Context, input HistoricalPri
 		Close         float64 `json:"close"`
 		High          float64 `json:"high"`
 		Low           float64 `json:"low"`
-		Volume        uint64  `json:"volume"`
+		Volume        float64 `json:"volume"`
 		Change        float64 `json:"change"`
 		ChangePercent float64 `json:"changePercent"`
 		Vwap          float64 `json:"vwap"`
