@@ -49,6 +49,10 @@ func (client Client) Quote(ctx context.Context, input QuoteInput) (*QuoteOutput,
 		return nil, fmt.Errorf("build request: %w", err)
 	}
 
+	if err := client.limiter.Wait(ctx); err != nil {
+		return nil, fmt.Errorf("wait for FMP rate limiter: %w", err)
+	}
+
 	resp, err := client.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("http do: %w", err)

@@ -2,12 +2,15 @@ package fmp
 
 import (
 	"net/http"
+
+	"golang.org/x/time/rate"
 )
 
 func New(apiKey string, client *http.Client) *Client {
 	handler := Client{
-		apiKey: apiKey,
-		client: http.DefaultClient,
+		apiKey:  apiKey,
+		client:  http.DefaultClient,
+		limiter: rate.NewLimiter(rate.Limit(45), 1),
 	}
 
 	if client != nil {
@@ -18,6 +21,7 @@ func New(apiKey string, client *http.Client) *Client {
 }
 
 type Client struct {
-	apiKey string
-	client *http.Client
+	apiKey  string
+	client  *http.Client
+	limiter *rate.Limiter
 }
