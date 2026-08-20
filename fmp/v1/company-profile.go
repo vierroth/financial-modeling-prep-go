@@ -23,7 +23,7 @@ type CompanyProfileOutput struct {
 	Change            float64
 	ChangePercentage  float64
 	Volume            float64
-	AverageVolume     int64
+	AverageVolume     float64
 	CompanyName       string
 	Currency          string
 	Cik               *string
@@ -92,7 +92,7 @@ func (client Client) CompanyInformation(ctx context.Context, input CompanyProfil
 		Change            float64  `json:"change"`
 		ChangePercentage  float64  `json:"changePercentage"`
 		Volume            float64  `json:"volume"`
-		AverageVolume     int64    `json:"averageVolume"`
+		AverageVolume     float64  `json:"averageVolume"`
 		CompanyName       string   `json:"companyName"`
 		Currency          string   `json:"currency"`
 		Cik               *string  `json:"cik"`
