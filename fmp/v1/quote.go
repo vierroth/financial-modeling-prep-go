@@ -20,7 +20,7 @@ type QuoteOutput struct {
 	Price            float64
 	ChangePercentage float64
 	Change           float64
-	Volume           uint64
+	Volume           float64
 	DayLow           float64
 	DayHigh          float64
 	YearHigh         float64
@@ -66,7 +66,7 @@ func (client Client) Quote(ctx context.Context, input QuoteInput) (*QuoteOutput,
 		Price            float64 `json:"price"`
 		ChangePercentage float64 `json:"changePercentage"`
 		Change           float64 `json:"change"`
-		Volume           uint64  `json:"volume"`
+		Volume           float64 `json:"volume"`
 		DayLow           float64 `json:"dayLow"`
 		DayHigh          float64 `json:"dayHigh"`
 		YearHigh         float64 `json:"yearHigh"`

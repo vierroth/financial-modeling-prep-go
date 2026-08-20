@@ -47,7 +47,7 @@ func (client Client) BatchExchangeQuote(ctx context.Context, input BatchExchange
 		Price            float64 `json:"price"`
 		ChangePercentage float64 `json:"changePercentage"`
 		Change           float64 `json:"change"`
-		Volume           uint64  `json:"volume"`
+		Volume           float64 `json:"volume"`
 		DayLow           float64 `json:"dayLow"`
 		DayHigh          float64 `json:"dayHigh"`
 		YearHigh         float64 `json:"yearHigh"`
