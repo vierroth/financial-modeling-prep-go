@@ -16,7 +16,7 @@ type CompanyProfileInput struct {
 type CompanyProfileOutput struct {
 	Symbol            string
 	Price             float64
-	MarketCap         float64
+	MarketCap         *float64
 	Beta              float64
 	LastDividend      float64
 	Range             string
@@ -26,7 +26,7 @@ type CompanyProfileOutput struct {
 	AverageVolume     int64
 	CompanyName       string
 	Currency          string
-	Cik               string
+	Cik               *string
 	Isin              string
 	Cusip             string
 	ExchangeFullName  string
@@ -43,7 +43,7 @@ type CompanyProfileOutput struct {
 	City              string
 	State             string
 	Zip               string
-	Image             string
+	Image             *string
 	IpoDate           string
 	DefaultImage      bool
 	IsEtf             bool
@@ -79,42 +79,42 @@ func (client Client) CompanyInformation(ctx context.Context, input CompanyProfil
 	}
 
 	var items []struct {
-		Symbol            string  `json:"symbol"`
-		Price             float64 `json:"price"`
-		MarketCap         float64 `json:"marketCap"`
-		Beta              float64 `json:"beta"`
-		LastDividend      float64 `json:"lastDividend"`
-		Range             string  `json:"range"`
-		Change            float64 `json:"change"`
-		ChangePercentage  float64 `json:"changePercentage"`
-		Volume            int64   `json:"volume"`
-		AverageVolume     int64   `json:"averageVolume"`
-		CompanyName       string  `json:"companyName"`
-		Currency          string  `json:"currency"`
-		Cik               string  `json:"cik"`
-		Isin              string  `json:"isin"`
-		Cusip             string  `json:"cusip"`
-		ExchangeFullName  string  `json:"exchangeFullName"`
-		Exchange          string  `json:"exchange"`
-		Industry          string  `json:"industry"`
-		Website           string  `json:"website"`
-		Description       string  `json:"description"`
-		Ceo               string  `json:"ceo"`
-		Sector            string  `json:"sector"`
-		Country           string  `json:"country"`
-		FullTimeEmployees string  `json:"fullTimeEmployees"`
-		Phone             string  `json:"phone"`
-		Address           string  `json:"address"`
-		City              string  `json:"city"`
-		State             string  `json:"state"`
-		Zip               string  `json:"zip"`
-		Image             string  `json:"image"`
-		IpoDate           string  `json:"ipoDate"`
-		DefaultImage      bool    `json:"defaultImage"`
-		IsEtf             bool    `json:"isEtf"`
-		IsActivelyTrading bool    `json:"isActivelyTrading"`
-		IsAdr             bool    `json:"isAdr"`
-		IsFund            bool    `json:"isFund"`
+		Symbol            string   `json:"symbol"`
+		Price             float64  `json:"price"`
+		MarketCap         *float64 `json:"marketCap"`
+		Beta              float64  `json:"beta"`
+		LastDividend      float64  `json:"lastDividend"`
+		Range             string   `json:"range"`
+		Change            float64  `json:"change"`
+		ChangePercentage  float64  `json:"changePercentage"`
+		Volume            int64    `json:"volume"`
+		AverageVolume     int64    `json:"averageVolume"`
+		CompanyName       string   `json:"companyName"`
+		Currency          string   `json:"currency"`
+		Cik               *string  `json:"cik"`
+		Isin              string   `json:"isin"`
+		Cusip             string   `json:"cusip"`
+		ExchangeFullName  string   `json:"exchangeFullName"`
+		Exchange          string   `json:"exchange"`
+		Industry          string   `json:"industry"`
+		Website           string   `json:"website"`
+		Description       string   `json:"description"`
+		Ceo               string   `json:"ceo"`
+		Sector            string   `json:"sector"`
+		Country           string   `json:"country"`
+		FullTimeEmployees string   `json:"fullTimeEmployees"`
+		Phone             string   `json:"phone"`
+		Address           string   `json:"address"`
+		City              string   `json:"city"`
+		State             string   `json:"state"`
+		Zip               string   `json:"zip"`
+		Image             *string  `json:"image"`
+		IpoDate           string   `json:"ipoDate"`
+		DefaultImage      bool     `json:"defaultImage"`
+		IsEtf             bool     `json:"isEtf"`
+		IsActivelyTrading bool     `json:"isActivelyTrading"`
+		IsAdr             bool     `json:"isAdr"`
+		IsFund            bool     `json:"isFund"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&items); err != nil && err != io.EOF {
 		return nil, fmt.Errorf("decode response: %w", err)
