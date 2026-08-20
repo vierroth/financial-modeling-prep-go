@@ -74,8 +74,8 @@ func (client Client) HistoricalPriceEod(ctx context.Context, input HistoricalPri
 	}
 
 	response := make([]*HistoricalPriceEodOutput, len(items))
-	for _, item := range items {
-		response = append(response, &HistoricalPriceEodOutput{
+	for i, item := range items {
+		response[i] = &HistoricalPriceEodOutput{
 			Symbol:        item.Symbol,
 			Date:          item.Date,
 			Open:          item.Open,
@@ -86,7 +86,7 @@ func (client Client) HistoricalPriceEod(ctx context.Context, input HistoricalPri
 			Change:        item.Change,
 			ChangePercent: item.ChangePercent,
 			Vwap:          item.Vwap,
-		})
+		}
 	}
 
 	return response, nil

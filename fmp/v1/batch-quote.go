@@ -65,8 +65,8 @@ func (client Client) BatchQuote(ctx context.Context, input BatchQuoteInput) ([]*
 	}
 
 	response := make([]*QuoteOutput, len(items))
-	for _, item := range items {
-		response = append(response, &QuoteOutput{
+	for i, item := range items {
+		response[i] = &QuoteOutput{
 			Symbol:           item.Symbol,
 			Name:             item.Name,
 			Price:            item.Price,
@@ -84,7 +84,7 @@ func (client Client) BatchQuote(ctx context.Context, input BatchQuoteInput) ([]*
 			Open:             item.Open,
 			PreviousClose:    item.PreviousClose,
 			Timestamp:        time.Unix(item.Timestamp, 0),
-		})
+		}
 	}
 
 	return response, nil
