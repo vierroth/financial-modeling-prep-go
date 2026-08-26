@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 type CompanyProfileInput struct {
@@ -44,7 +45,7 @@ type CompanyProfileOutput struct {
 	State             string
 	Zip               string
 	Image             *string
-	IpoDate           string
+	IpoDate           time.Time
 	DefaultImage      bool
 	IsEtf             bool
 	IsActivelyTrading bool
@@ -128,6 +129,11 @@ func (client Client) CompanyInformation(ctx context.Context, input CompanyProfil
 		return nil, fmt.Errorf("no quote found for symbol %q", input.Symbol)
 	}
 
+	ipoDate, err := time.Parse("2006-01-02", items[0].IpoDate)
+	if err != nil {
+		return nil, fmt.Errorf("error parsing date: %v", err)
+	}
+
 	return &CompanyProfileOutput{
 		Symbol:            items[0].Symbol,
 		Price:             items[0].Price,
@@ -159,7 +165,7 @@ func (client Client) CompanyInformation(ctx context.Context, input CompanyProfil
 		State:             items[0].State,
 		Zip:               items[0].Zip,
 		Image:             items[0].Image,
-		IpoDate:           items[0].IpoDate,
+		IpoDate:           ipoDate,
 		DefaultImage:      items[0].DefaultImage,
 		IsEtf:             items[0].IsEtf,
 		IsActivelyTrading: items[0].IsActivelyTrading,
