@@ -45,7 +45,7 @@ type CompanyProfileOutput struct {
 	State             string
 	Zip               string
 	Image             *string
-	IpoDate           time.Time
+	IpoDate           *time.Time
 	DefaultImage      bool
 	IsEtf             bool
 	IsActivelyTrading bool
@@ -129,9 +129,13 @@ func (client Client) CompanyInformation(ctx context.Context, input CompanyProfil
 		return nil, fmt.Errorf("no quote found for symbol %q", input.Symbol)
 	}
 
-	ipoDate, err := time.Parse("2006-01-02", items[0].IpoDate)
-	if err != nil {
-		return nil, fmt.Errorf("error parsing date: %v", err)
+	var ipoDate *time.Time
+	if items[0].IpoDate != "" {
+		parsed, err := time.Parse("2006-01-02", items[0].IpoDate)
+		if err != nil {
+			return nil, fmt.Errorf("error parsing ipoDate: %v", err)
+		}
+		ipoDate = &parsed
 	}
 
 	return &CompanyProfileOutput{
