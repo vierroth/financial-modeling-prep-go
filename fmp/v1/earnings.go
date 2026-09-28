@@ -78,26 +78,26 @@ func (client Client) Earnings(ctx context.Context, input EarningsInput) ([]*Earn
 		return nil, fmt.Errorf("decode response: %w", err)
 	}
 
-	var date *time.Time
-	if items[0].Date != nil && *items[0].Date != "" {
-		parsed, err := time.Parse("2006-01-02", *items[0].Date)
-		if err != nil {
-			return nil, fmt.Errorf("error parsing date: %v", err)
-		}
-		date = &parsed
-	}
-
-	var lastUpdated *time.Time
-	if items[0].LastUpdated != nil && *items[0].LastUpdated != "" {
-		parsed, err := time.Parse("2006-01-02", *items[0].LastUpdated)
-		if err != nil {
-			return nil, fmt.Errorf("error parsing lastUpdated: %v", err)
-		}
-		lastUpdated = &parsed
-	}
-
 	response := make([]*Earnings, len(items))
 	for i, item := range items {
+		var date *time.Time
+		if item.Date != nil && *item.Date != "" {
+			parsed, err := time.Parse("2006-01-02", *item.Date)
+			if err != nil {
+				return nil, fmt.Errorf("error parsing date: %v", err)
+			}
+			date = &parsed
+		}
+
+		var lastUpdated *time.Time
+		if item.LastUpdated != nil && *item.LastUpdated != "" {
+			parsed, err := time.Parse("2006-01-02", *item.LastUpdated)
+			if err != nil {
+				return nil, fmt.Errorf("error parsing lastUpdated: %v", err)
+			}
+			lastUpdated = &parsed
+		}
+
 		response[i] = &Earnings{
 			Symbol:           item.Symbol,
 			Date:             date,
