@@ -28,7 +28,7 @@ type EarningsInput struct {
 }
 
 func (client Client) Earnings(ctx context.Context, input EarningsInput) ([]*Earnings, error) {
-	baseURL, err := url.Parse("https://financialmodelingprep.com/stable/sp500-constituent")
+	baseURL, err := url.Parse("https://financialmodelingprep.com/stable/earnings")
 	if err != nil {
 		return nil, fmt.Errorf("parse URL: %w", err)
 	}
