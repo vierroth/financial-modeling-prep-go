@@ -76,7 +76,7 @@ func (client Client) HistoricalChart1Min(ctx context.Context, input HistoricalCh
 	}
 
 	var items []struct {
-		Date   string   `json:"symbol"`
+		Date   string   `json:"date"`
 		Open   *float64 `json:"open"`
 		Low    *float64 `json:"low"`
 		High   *float64 `json:"high"`
